@@ -1,0 +1,7 @@
+in format,ttttt,tnnenene,,,,,
+Élément,Énergie théorique (keV),Position (canal),,FWHM (canaux),,Nombre d’événements,
+\ce{^{137}Cs},661.659,3.00E+005,2.52E+001,0,0,0,1
+\ce{^{60}Co},1173.24,5.26E+005,7.59E+001,0,0,0,2
+\ce{^{60}Co},1332.508,5.98E+005,9.97E+001,0,0,0,3
+\ce{^{22}Na},511,2.32E+005,1.18E+001,0,0,0,4
+\ce{^{22}Na},1274.577,5.72E+005,1.18E+002,0,0,0,5
