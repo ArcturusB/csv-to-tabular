@@ -25,7 +25,7 @@ class Tex_src:
         return row.rstrip('\t& ') + '\t\\\\\n'
 
     def tabular_row(self, cells):
-        return cells.join("\t& ") + self_row_end
+        return "\t& ".join(cells) + self_row_end
 
     def num(self, num):
         return "\\num{"+num+"}"
@@ -57,6 +57,7 @@ def process_in_format(format_row):
         'e': -3,
         'u': -3,
         }
+    # format_row = 
     for i,f in enumerate(format_row):
         try:
             last[f] = i
