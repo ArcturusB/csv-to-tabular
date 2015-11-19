@@ -88,22 +88,32 @@ if __name__ == '__main__':
     filename = 'tests/calib_test.csv'
 
     tex_data = []
-    out_format = ""
+    out_format = None
+    in_format = None
     tex_src = Tex_src()
     f = open(filename, newline='')
     csv_reader = csv.reader(f, delimiter=',', quotechar='"')
     for row_num, row in enumerate(csv_reader):
         print("==>", row)
         if row_num == 0:
-            if re_in_line.match(row[0]):
-                in_format = process_in_format(row)
+            # only accept out format in 1st row
+            if re_out_line.match(row[0]):
+                out_format = re_out_line.match(row[0]).group(1)
+                continue
             else:
-                in_format = len(row) * "l"
-        elif re_out_line.match(row[0]):
-            out_format = re_out_line.match(row[0]).group(1)
+                # fallback to (number of output columns) * "l". based on 1st
+                # line, and avoid being fooled by "in format" lines
+                if re_in_line.match(row[0]):
+                    out_format = "l" * len(process_in_format(row))
+                else:
+                    out_format = "l" * len(row)
+        if re_in_line.match(row[0]):
+            in_format = process_in_format(row)
         elif re_hline.match(row[0]):
             tex_data += [tex_src.tab_row_sep]
         else:
+            msg = "Please insert a “%in:%” format row before any data in your CSV."
+            assert in_format, msg
             col_num = 0
             tex_row = []
             for (func, nargs) in in_format:
@@ -111,6 +121,8 @@ if __name__ == '__main__':
                 col_num += nargs
             tex_data += [tex_src.tabular_row(tex_row)]
 
+    tex_data.insert(0, tex_src.begin_tabular(out_format))
+    tex_data.append(tex_src.end_tabular())
     tex_data = "\n".join(tex_data)
     print(tex_data)
 
