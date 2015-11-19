@@ -126,5 +126,16 @@ class Csv_to_Tabular:
 
 if __name__ == '__main__':
 
-    filename = 'tests/calib_test.csv'
-    print(Csv_to_Tabular.csv_to_tabular(filename))
+    import argparse
+
+    parser = argparse.ArgumentParser(description="TODO")
+    parser.add_argument(
+        "filename", 
+        metavar="filename", 
+        type=str, 
+        default="",
+        help='input CSV file')
+
+    args=parser.parse_args()
+
+    print(Csv_to_Tabular.csv_to_tabular(args.filename))

@@ -1,5 +1,6 @@
-# csv-to-tabular
-> A Python script that converts CSV data to TeX `tabular` environments.
+csv-to-tabular
+==============
+> A Python script to create TeX tabulars from CSV data.
 
 # How-to
 > TODO
