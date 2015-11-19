@@ -5,7 +5,7 @@ import re
 import os.path
 
 class Tex_Src:
-    
+
     tab_col_sep = "\t& "
     tab_row_sep = "\\hline"
     tab_row_end = "\t\\\\"
@@ -26,17 +26,20 @@ class Tex_Src:
     def num(num):
         return "\\num{"+num+"}"
 
+    def sisetup():
+        return "\\sisetup{separate-uncertainty=true}"
+
     def SI(num, unit):
-        return "\\SI{"+num+"}{"+err+"}"
+        return "\\SI{"+num+"}{"+unit+"}"
 
     def num_err(num, err):
-        return "\\num{"+num+" \\pm "+err+"}"
+        return "\\num{"+num+"}$\\pm$\\num{"+err+"}"
 
     def SI_err(num, err, unit):
-        return '\\SI{'+num+' \\pm '+err+'}{'+content+'}'
+        return "\\num{"+num+"}$\\pm$\\num{"+err+"}\\si{"+unit+"}"
 
 class Csv_to_Tabular:
-    
+
     re_in_line = re.compile("%in:% ?(.*)")
     re_out_line = re.compile("%out:% ?(.*)")
     re_hline = re.compile("%hline%")
@@ -55,7 +58,7 @@ class Csv_to_Tabular:
         "neu": (Tex_Src.SI_err, 3),
         }
     # in `functions`, simple pattern entries (n, nu, ne, neu) contain tuples (function,
-    # nargs), while tricky patterns entries (t-+) contain only functions. 
+    # nargs), while tricky patterns entries (t-+) contain only functions.
 
     # Rules:
     # First row *may* be a %out:% lllll (any tabular format comprehensible by TeX).
@@ -67,7 +70,7 @@ class Csv_to_Tabular:
     def process_in_format(format_row):
         """ Take a format row and return the list of tuples (func, nargs) to
         format the following rows.
-        """ 
+        """
         in_format_string = "".join((
             Csv_to_Tabular.re_in_line.match(format_row[0]).group(1),
             *(cell.strip(' ') for cell in format_row[1:])
@@ -78,16 +81,19 @@ class Csv_to_Tabular:
                 in_format.append(Csv_to_Tabular.functions[chunk.group(0)])
             except KeyError:
                 in_format.append((
-                    Csv_to_Tabular.functions[chunk.group(1)][0], 
+                    Csv_to_Tabular.functions[chunk.group(1)][0],
                     len(chunk.group(2)) + 1))
         return in_format
-    
+
     def csv_to_tabular(filename):
+        """ Where the actual conversion is done. """
+
         tex_data = []
         out_format = None
         in_format = None
         f = open(filename, newline='')
         csv_reader = csv.reader(f, delimiter=',', quotechar='"')
+
         for row_num, row in enumerate(csv_reader):
             if row_num == 0:
                 # only accept out format in 1st row
@@ -131,9 +137,9 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="TODO")
     parser.add_argument(
-        "filename", 
-        metavar="filename", 
-        type=str, 
+        "filename",
+        metavar="filename",
+        type=str,
         default="",
         help='input CSV file')
 
