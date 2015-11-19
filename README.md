@@ -2,23 +2,66 @@ csv-to-tabular
 ==============
 > A Python script to create TeX tabulars from CSV data.
 
-# How-to
-> TODO
+## Usage
 
-## Input (CSV) formats
+To use this script, simply call it from the command line with the CSV file you
+want to convert as its only argument:
 
-## Output (TeX) formats
+	./csv-to-tabular.py my_cool_data.csv
 
-## Further help
+The CSV file may contain additional formatting instructions in special rows
+that start with either “%in:%” or “%out:%”. The “in” format specifies how data
+should be read in the CSV, while the “out” format specifies how it should be
+rendered in TeX.
+
+### In format
+
+**In** format rows start with the special string “%in:%” and each of its cells
+contains a letter which specifies the *meaning* of the data type.
+
+    letter | meaning     
+   --------+----------------
+    t      | text
+    n      | number
+    e      | standard error
+    u      | unit
+    -      | skip this row
+   --------+----------------
+
+This allows a clearer representation of the data TeX: unit 
+
+
+### Out format
+
+**Out** format rows may contain only one cell, containing the special string
+“%out:%” followed by the column format argument for the tabular environment.
+Example:
+
+> %out:% r|lll|
+
+### Real-life example
+
+> %out:% lllll
+> %in:%     t, t, t,-, t,-, t,-
+> Element,          Energy (keV),   Event count     , 
+> %hline%
+> %in:% t,          n,              n,              , e
+> \ce{^{137}Cs},    661.659,
+> \ce{^{60}Co},     1173.24,
+> \ce{^{60}Co},     1332.508,
+> \ce{^{22}Na},     511,
+> \ce{^{22}Na},     1274.577,
+
+
+## Help!
 For some quick help, you can type in your terminal:
 
 	./csv-to-tabular.py --help
 
-# To do
-- Better `argparse` help
-- Automatically determine format lines
+## TODO
+- `argparse` help
 
-# License
+## License
 csv-to-tabular.py
 Copyright (C) 2015  Gabriel Pelouze
 
