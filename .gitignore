@@ -1,5 +1,5 @@
 tests/*.tex
-tests_old/
+old/
 csv-to-tabular_old.py
 
 # Byte-compiled / optimized / DLL files
