@@ -106,8 +106,9 @@ class Csv_to_Tabular:
             elif Csv_to_Tabular.re_hline.match(row[0]):
                 tex_data += [Tex_Src.tab_row_sep]
             else:
-                msg = "Please insert a “%in:%” format row before any data in your CSV."
-                assert in_format, msg
+                if not in_format:
+                    # fallback: assume everything is text ("t" format)
+                    in_format = [(Tex_Src.text, 1)] * len(out_format)
                 col_num = 0
                 tex_row = []
                 for (func, nargs) in in_format:
