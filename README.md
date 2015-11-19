@@ -5,7 +5,9 @@
 > TODO
 
 ## Input (CSV) formats
+
 ## Output (TeX) formats
+
 ## Further help
 For some quick help, you can type in your terminal:
 
