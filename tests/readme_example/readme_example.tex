@@ -1,0 +1,19 @@
+\documentclass{article}
+
+\usepackage[version=3]{mhchem}
+\usepackage{siunitx}
+
+\begin{document}
+
+\sisetup{separate-uncertainty=true}
+\begin{tabular}{l|ll}
+Element           	&  Energy (keV)  	&  Event count   	\\
+\hline \\
+\ce{^{137}Cs}     	& \num{ 661.659       }	& \num{ 45.4e6        }$\pm$\num{ 2.4e5}	\\
+\ce{^{60}Co}      	& \num{ 1173.24       }	& \num{ 20.8e6        }$\pm$\num{ 2.5e5}	\\
+\ce{^{60}Co}      	& \num{ 1332.508      }	& \num{ 17.3e6        }$\pm$\num{ 2.0e5}	\\
+\ce{^{22}Na}      	& \num{ 511           }	& \num{ 62.8e6        }$\pm$\num{ 4.2e5}	\\
+\ce{^{22}Na}      	& \num{ 1274.577      }	& \num{ 13.8e6        }$\pm$\num{ 2.3e5}	\\
+\end{tabular}
+
+\end{document}

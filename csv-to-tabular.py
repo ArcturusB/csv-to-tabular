@@ -23,6 +23,10 @@ class Tex_Src:
         """ Dummy function used in `process_in_format` """
         return text
 
+    def math(text, *args):
+        """ Almost dummy function used in `process_in_format` """
+        return "$"+text+"$"
+
     def num(num):
         return "\\num{"+num+"}"
 
@@ -44,7 +48,7 @@ class Csv_to_Tabular:
     re_out_line = re.compile("%out:% ?(.*)")
     re_hline = re.compile("%hline%")
     re_in_format = re.compile(
-        "(?:(t)(-+)?)|(?:n(?!u|(?:eu?)))|(?:nu)|(?:ne(?!u))|(?:neu)")
+        "(?:(t)(-+)?)|(?:m)|(?:n(?!u|(?:eu?)))|(?:nu)|(?:ne(?!u))|(?:neu)")
     # (t[-]+)|(n)|(nu)|(ne)|(neu)
     # simple patterns (ie n, nu, ne, neu) are returned in group 0
     # for tricky patterns (ie t-+) group 1 contains the key for functions dict in
@@ -52,6 +56,7 @@ class Csv_to_Tabular:
 
     functions = {
         "t": (Tex_Src.text, 1),
+        "m": (Tex_Src.math, 1),
         "n": (Tex_Src.num, 1),
         "nu": (Tex_Src.SI, 2),
         "ne": (Tex_Src.num_err, 2),
