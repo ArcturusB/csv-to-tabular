@@ -27,7 +27,7 @@ by adding to the CSV a row that contains only a `%hline%` string.
 contains a letter which specifies the *meaning* of the data type.
 
     letter | meaning     
-   --------+----------------
+   =========================
     t      | text
     m      | math
     n      | number
@@ -53,7 +53,9 @@ table.
 
 The **Out** format row may only appear on the first row of the CSV file. It is
 composed of only one cell that contains the special string `%out:%` followed by
-the column format argument for the tabular environment.  Example:
+the column format argument for the tabular environment. 
+
+Example:
 
     %out:% r|lll|
 
@@ -62,15 +64,15 @@ the column format argument for the tabular environment.  Example:
 CSV input:
 
     %out:% l|ll
-    %in:% t           , t             , t             , -
-    Element           , Energy (keV)  , Event count   ,  
+    %in:% t       , t            , t            , -
+    Element       , Energy (keV) , Event count  ,  
     %hline%
-    %in:% t           , n             , n             , e
-    \ce{^{137}Cs}     , 661.659       , 45.4e6        , 2.4e5
-    \ce{^{60}Co}      , 1173.24       , 20.8e6        , 2.5e5
-    \ce{^{60}Co}      , 1332.508      , 17.3e6        , 2.0e5
-    \ce{^{22}Na}      , 511           , 62.8e6        , 4.2e5
-    \ce{^{22}Na}      , 1274.577      , 13.8e6        , 2.3e5
+    %in:% t       , n            , n            , e
+    \ce{^{137}Cs} , 661.659      , 45.4e6       , 2.4e5
+    \ce{^{60}Co}  , 1173.24      , 20.8e6       , 2.5e5
+    \ce{^{60}Co}  , 1332.508     , 17.3e6       , 2.0e5
+    \ce{^{22}Na}  , 511          , 62.8e6       , 4.2e5
+    \ce{^{22}Na}  , 1274.577     , 13.8e6       , 2.3e5
 
 TeX output:
 
