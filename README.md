@@ -27,7 +27,7 @@ by adding to the CSV a row that contains only a `%hline%` string.
 contains a letter which specifies the *meaning* of the data type.
 
     letter | meaning     
-   =========================
+    -------+----------------
     t      | text
     m      | math
     n      | number
