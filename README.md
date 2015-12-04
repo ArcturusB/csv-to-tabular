@@ -29,7 +29,7 @@ contains a letter which specifies the *meaning* of the data type.
     letter | meaning     
    --------+----------------
     t      | text
-    t      | math
+    m      | math
     n      | number
     e      | standard error
     u      | unit
