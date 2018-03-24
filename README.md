@@ -1,6 +1,7 @@
 csv-to-tabular
 ==============
-An script to create LaTeX tabulars from CSV data, with easy units and
+
+A script to create LaTeX tabulars from CSV data, with easy units and
 uncertainties handling.
 
 This script relies on the `siunitx` package to display numbers and
@@ -101,7 +102,7 @@ of the code.
 
 ## License
 csv-to-tabular.py
-Copyright (C) 2015  Gabriel Pelouze
+Copyright (C) 2018  Gabriel Pelouze
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
