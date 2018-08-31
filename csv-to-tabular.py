@@ -19,6 +19,12 @@ class Tex_Src:
     def tabular_row(cells):
         return Tex_Src.tab_col_sep.join(cells) + Tex_Src.tab_row_end
 
+    def cell(content, multiline=False):
+        if multiline:
+            content = content.replace('\n', ' \\\\')
+            content = '\makecell{{{}}}'.format(content)
+        return content
+
     def text(text, *args):
         """ Dummy function used in `process_in_format` """
         return text
@@ -90,7 +96,7 @@ class Csv_to_Tabular:
                     len(chunk.group(2)) + 1))
         return in_format
 
-    def csv_to_tabular(filename):
+    def csv_to_tabular(filename, multiline=False):
         """ Where the actual conversion is done. """
 
         tex_data = []
@@ -125,6 +131,8 @@ class Csv_to_Tabular:
                 for (func, nargs) in in_format:
                     tex_row.append(func(*row[col_num:col_num+nargs]))
                     col_num += nargs
+                tex_row = [Tex_Src.cell(cell, multiline=multiline)
+                           for cell in tex_row]
                 tex_data += [Tex_Src.tabular_row(tex_row)]
 
         tex_data.insert(0, Tex_Src.begin_tabular(out_format))
@@ -147,7 +155,14 @@ if __name__ == '__main__':
         type=str,
         default="",
         help='input CSV file')
+    parser.add_argument(
+        '--multiline',
+        action='store_true',
+        help='Handle line breaks in cells. Requires the makecell package.')
 
     args=parser.parse_args()
 
-    print(Csv_to_Tabular.csv_to_tabular(args.filename))
+    tex = Csv_to_Tabular.csv_to_tabular(
+        args.filename,
+        multiline=args.multiline)
+    print(tex)
